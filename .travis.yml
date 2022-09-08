@@ -35,7 +35,7 @@ deploy:
 
   - provider: pypi
     skip_cleanup: true
-    user: aleg
+    user: mrahman
     password: "$PYPI_PW"
     server: https://test.pypi.org/legacy/
     on:
