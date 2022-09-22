@@ -20,69 +20,69 @@ before_deploy:
   # Prebuild mkdocs site documentation
   - mkdocs build --verbose --clean
 
-deploy:
+# deploy:
 
-  # Development / test deployment
-  - provider: pages
-    skip_cleanup: true
-    target_branch: gh-pages-test
-    github_token: "$GH_TOKEN"
-    local_dir: site
-    on:
-      all_branches: true
-      tags: true
-      condition: $TRAVIS_TAG == *.dev*
+#   # Development / test deployment
+#   - provider: pages
+#     skip_cleanup: true
+#     target_branch: gh-pages-test
+#     github_token: "$GH_TOKEN"
+#     local_dir: site
+#     on:
+#       all_branches: true
+#       tags: true
+#       condition: $TRAVIS_TAG == *.dev*
 
-  - provider: pypi
-    skip_cleanup: true
-    user: mrahman
-    password: "$PYPI_PW"
-    server: https://test.pypi.org/legacy/
-    on:
-      all_branches: true
-      tags: true
-      condition: $TRAVIS_TAG == *.dev*
+#   - provider: pypi
+#     skip_cleanup: true
+#     user: mrahman
+#     password: "$PYPI_PW"
+#     server: https://test.pypi.org/legacy/
+#     on:
+#       all_branches: true
+#       tags: true
+#       condition: $TRAVIS_TAG == *.dev*
 
-  - provider: script
-    skip_cleanup: true
-    script: bash ./deploy_anaconda.sh $ANACONDA_DEV_TOKEN
-    on:
-      all_branches: true
-      tags: true
-      condition: $TRAVIS_TAG == *.dev*
+#   - provider: script
+#     skip_cleanup: true
+#     script: bash ./deploy_anaconda.sh $ANACONDA_DEV_TOKEN
+#     on:
+#       all_branches: true
+#       tags: true
+#       condition: $TRAVIS_TAG == *.dev*
 
-  # Production version deployment
-  - provider: pages
-    skip_cleanup: true
-    target_branch: gh-pages-test
-    github_token: "$GH_TOKEN"
-    local_dir: site
-    on:
-      tags: true
-      all_branches: true
-      condition: $TRAVIS_TAG != *.dev*
+#   # Production version deployment
+#   - provider: pages
+#     skip_cleanup: true
+#     target_branch: gh-pages-test
+#     github_token: "$GH_TOKEN"
+#     local_dir: site
+#     on:
+#       tags: true
+#       all_branches: true
+#       condition: $TRAVIS_TAG != *.dev*
 
-  - provider: pypi
-    skip_cleanup: true
-    user: mrahman
-    password: "$PYPI_PW"
-    on:
-      tags: true
-      all_branches: true
-      condition: $TRAVIS_TAG != *.dev*
+#   - provider: pypi
+#     skip_cleanup: true
+#     user: mrahman
+#     password: "$PYPI_PW"
+#     on:
+#       tags: true
+#       all_branches: true
+#       condition: $TRAVIS_TAG != *.dev*
 
-  - provider: script
-    skip_cleanup: true
-    script: bash ./deploy_anaconda.sh $ANACONDA_TOKEN
-    on:
-      tags: true
-      all_branches: true
-      condition: $TRAVIS_TAG != *.dev*
+#   - provider: script
+#     skip_cleanup: true
+#     script: bash ./deploy_anaconda.sh $ANACONDA_TOKEN
+#     on:
+#       tags: true
+#       all_branches: true
+#       condition: $TRAVIS_TAG != *.dev*
 
-  - provider: releases
-    api_key: $GH_TOKEN
-    skip_cleanup: true
-    on:
-      tags: true
-      all_branches: true
-      condition: $TRAVIS_TAG != *.dev*
+#   - provider: releases
+#     api_key: $GH_TOKEN
+#     skip_cleanup: true
+#     on:
+#       tags: true
+#       all_branches: true
+#       condition: $TRAVIS_TAG != *.dev*
